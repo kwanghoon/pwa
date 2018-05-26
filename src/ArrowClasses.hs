@@ -111,6 +111,11 @@ instance ArrowChoice SF where
               --    it applies f to a list of left-tagged ys,
               --    not to each of ys. What does this mean?
 
+
+_ = runSF (left (arr (+1))) [Left 1, Right 2, Left 3, Right 5, Left 5]
+-- [Left 2,Right 2,Left 4,Right 5,Left 6]
+
+
 delay x = SF (init . (x:))
 
 _ = runSF (mapA (delay 0)) [[1,2,3],[4,5,6],[7,8,9]]
