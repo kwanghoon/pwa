@@ -1,4 +1,4 @@
-module IntroArrow where
+module IntroArrow (__count) where
 
 -- Combine pure function composition with arrow-based composition
 class Arrow arr where
@@ -16,8 +16,8 @@ newtype Kleisli m a b = Kleisli { runKleisli :: a -> m b }
 instance Monad m => Arrow (Kleisli m) where
     arr f = Kleisli (return . f)
     (>>>) (Kleisli f) (Kleisli g) = 
-        Kleisli (\a -> do b <- f a 
-                          g b)
+        Kleisli $ \a -> do b <- f a 
+                           g b
 
 __count w = Kleisli readFile >>>
             arr words >>> arr (filter (==w)) >>> arr length >>>
