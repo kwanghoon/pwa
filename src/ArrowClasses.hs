@@ -150,7 +150,7 @@ instance ArrowLoop SF where
 
 -- Circuits.hs
 
-nor :: SF (Bool,Bool) Bool
+nor :: Arrow arr => arr (Bool, Bool) Bool    -- e.g., SF (Bool,Bool) Bool
 nor = arr (not . uncurry (||))
 
 
